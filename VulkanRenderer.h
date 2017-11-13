@@ -6,7 +6,11 @@
 #define VULKANCPPTEST_VULKANRENDERER_H
 
 
+#include <memory>
 #include <vulkan/vulkan.h>
+#include <GLFW/glfw3.h>
+#include "VulkanSwapChain.h"
+#include "VulkanDevice.h"
 
 class VulkanRenderer {
 public:
@@ -14,12 +18,14 @@ public:
     void createWindow(int w, int h);
 
 private:
-    void createCommandPool();
     void createSwapChain();
     void createDepthImage();
-    VkCommandBuffer cmdDepthImage;
-    VkCommandPool cmdPool;
-    Vulkan
+    void createCommandPool();
+    std::unique_ptr<VulkanSwapChain> swapChain;
+    std::unique_ptr<VulkanDevice> device;
+    std::unique_ptr<VkCommandBuffer> cmdDepthImage;
+    std::unique_ptr<VkCommandPool> cmdPool;
+    GLFWwindow* window;
 };
 
 
